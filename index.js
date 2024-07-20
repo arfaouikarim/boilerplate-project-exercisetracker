@@ -84,12 +84,14 @@ app.get("/api/users/:_id/logs",async(req,res)=>{
     filter.date=dateobj
   }
   const exercice=await Exercice.find(filter).limit(+limit ?? 500)
-  const log=exercice.map(e=>(console.log(typeof((new Date(e.date)))),
-    {
+  let log=exercice.map(e=>(
+ {
     description:e.description,
     duration:e.duration,
-    date:(new Date(e.date)).toUTCString()
-  }))
+    date:(new Date(e.date)).toDateString()
+  } 
+
+))
   res.json({
     username: user.username,
     count: exercice.length,
